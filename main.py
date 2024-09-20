@@ -7,15 +7,15 @@ import csv
 import random
 import itertools
 import time
+import json
 
-# List of business categories
-business_types = [
-    "Real Estate companies", "Charity/Non-Profits", "Portfolio sites for Instagram artists",
-    "Local Restaurant chains", "Personal Injury Law Firms", "Independent insurance sites",
-    "Landscaping/Fertilizer", "Painting", "Power Washing", "Car Wash", "Axe Throwing", "Gun Ranges/Stores",
-    "Currency Exchanges/Check Cashing", "Construction Materials Companies", "Gyms", "Salons with multiple locations",
-    "Eyebrow Microblading", "Estheticians", "Orthodontists", "Used Car dealerships", "Clothing Brand", "Cut & Sew", "Embroidery"
-]
+# Load countries from JSON file
+with open('countries.json', 'r') as f:
+    countries = json.load(f)
+
+# Load business types from JSON file
+with open('business_types.json', 'r') as f:
+    business_types = json.load(f)['business_types']
 
 @dataclass
 class Business:
@@ -93,6 +93,17 @@ def spinning_cursor():
         yield f"\033[91m{next(spinner)}\033[0m"  # Red-colored spinner using ANSI escape codes
 
 def main():
+    # Display menu for country selection
+    print("Select a country:")
+    for i, (code, country) in enumerate(countries.items(), start=1):
+        print(f"{i}. {country['name']}")
+
+    country_choice = int(input("Enter the number of the country you want to scrape: "))
+    selected_country = list(countries.keys())[country_choice - 1]
+    
+    # Load cities for the selected country
+    cities_states_original = get_cities_and_states_from_csv(countries[selected_country]['cities_file'])
+
     # Display menu for business categories
     print("Select one or more business types by entering their numbers separated by commas or ranges (e.g., 1,3,5-7):")
     for i, business in enumerate(business_types, start=1):
@@ -128,9 +139,6 @@ def main():
     headless_choice = input("Do you want to run the script in headless mode? (y/n): ").strip().lower()
     headless = headless_choice == 'y'
 
-    # Get cities and states from uscities.csv
-    cities_states_original = get_cities_and_states_from_csv('cities.csv')
-
     centralized_filename = "Scraped_results"
 
     spinner = spinning_cursor()
@@ -161,7 +169,7 @@ def main():
                 cities_states.remove((selected_city, selected_state))  # Remove to avoid revisiting
 
                 print(f"Searching for {selected_business_type} in {selected_city}, {selected_state}.")
-                search_for = f"{selected_business_type} in {selected_city}, {selected_state}"
+                search_for = f"{selected_business_type} in {selected_city}, {selected_state}, {countries[selected_country]['name']}"
 
                 try:
                     page.goto("https://www.google.com/maps", timeout=30000)

@@ -1,0 +1,10 @@
+{
+    "US": {
+      "name": "United States",
+      "cities_file": "us_cities.csv"
+    },
+    "UK": {
+      "name": "United Kingdom",
+      "cities_file": "uk_cities.csv"
+    }
+  }
