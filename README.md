@@ -1,14 +1,14 @@
-# Google Maps Business Scraper
+# Google Maps Business Scraper: The Ultimate Data Extraction Tool
 
-## Disclaimer: This script is intended for educational and research purposes only. The author is not responsible for any misuse of this script. Use it responsibly and at your own risk.
+## Disclaimer: This script is for educational and research purposes only. The author is not responsible for any misuse of this script. Use it responsibly and at your own risk.
 
 This script automates the extraction of business information from Google Maps using Playwright. It allows users to select business categories and scrape details such as business name, address, website, phone number, reviews count, reviews average, latitude, and longitude.
 
 
 # Features
 
-- **Multiple Business Categories**: Choose from a predefined list of business types or add your own.
-- **Random City Selection**: Randomly selects cities and states from a provided CSV file (`uscities.csv`).
+- **Diverse Business Categories**: Choose from a wide range of business types or add your own.
+- **City Roulette**: Randomly selects cities and states from a provided CSV file (`uscities.csv`).
 - **Data Extraction**: Captures business details including reviews count and average rating.
 - **Data Storage**: Saves scraped data to a centralized CSV file with options to append or overwrite.
 - **Duplicate Handling**: Ensures no duplicate businesses are saved.
@@ -18,15 +18,15 @@ This script automates the extraction of business information from Google Maps us
 - **Python 3.7 or higher**
 - **Playwright**: For browser automation.
 - **Pandas**: For data manipulation.
-- **An included CSV file named `uscities.csv`**: Should contain at least `city` and `state_id` columns.
+- **An included CSV file named `cities.csv`**: Should contain at least `city` and `state_id` columns.
 
 # Installation
 
-1. Downlaod or clone the script
+1. clone the repository
    ```
    git clone https://github.com/Noko7/GoogleScraper9000
    ```
-Ensure you have the uscities.csv file in your project directory.
+Ensure you have the cities.csv file in your project directory.
 
 2. **Create a Virtual Environment (Optional but Recommended)**
 
@@ -40,7 +40,11 @@ Install the required packages using pip:
 
 ```
 pip install -r requirements.txt
+pip install pytest-playwright
+
 playwright install
+pip install pandas
+pip install playwright
 ```
 
 # Usage
@@ -49,17 +53,17 @@ playwright install
 python main.py
 ```
 
-# Selecting Business Catagories (Feel free to add your own)
-When you run the script, it will display a menu of business catagories:
+# Selecting Business Categories (Feel free to add your own)
+When you run the script, it will display a menu of business categories:
 ```
 Select one or more business types by entering their numbers separated by commas or ranges (e.g., 1,3,5-7):
 1. Real Estate companies
 2. Charity/Non-Profits
-3. (ect)...
+3. (etc)...
 ```
 
 ## Follow the prompts
-- **Select Business Types:** Use the instructions above to select catagories
+- **Select Business Types:** Use the instructions above to select categories
 - **Choose the number of listings you want to capture**
 - **Start Scraping**
 - Check the output folder for the data

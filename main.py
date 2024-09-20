@@ -129,7 +129,7 @@ def main():
     headless = headless_choice == 'y'
 
     # Get cities and states from uscities.csv
-    cities_states_original = get_cities_and_states_from_csv('uscities.csv')
+    cities_states_original = get_cities_and_states_from_csv('cities.csv')
 
     centralized_filename = "Scraped_results"
 
